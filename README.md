@@ -5,7 +5,8 @@ Use Sony Playstation(R)3 Wireless Controller in your ImpactJS game on your web b
 
 *Compatibilities: Google Chrome 21+, Mozilla Firefox 24+*
 
-File: lib/game/main.js
+lib/game/main.js
+----------------
 ```
 	// ...
 	.requires( ... , 'plugins.gamepadPS3' , ... )
@@ -21,12 +22,12 @@ File: lib/game/main.js
 			ig.input.bind( ig.KEY.UP_ARROW, 'jump' );
 		
 			this.gamepad
-				.mapping( ig.PS3KEY.LEFT	, ig.KEY.LEFT_ARROW )
-				.mapping( ig.PS3AXIS.L_LEFT	, ig.KEY.LEFT_ARROW )
-				.mapping( ig.PS3KEY.RIGHT	, ig.KEY.RIGHT_ARROW )
+				.mapping( ig.PS3KEY.LEFT		, ig.KEY.LEFT_ARROW )
+				.mapping( ig.PS3AXIS.L_LEFT		, ig.KEY.LEFT_ARROW )
+				.mapping( ig.PS3KEY.RIGHT		, ig.KEY.RIGHT_ARROW )
 				.mapping( ig.PS3AXIS.L_RIGHT	, ig.KEY.RIGHT_ARROW )
-				.mapping( ig.PS3KEY.UP		, ig.KEY.UP_ARROW )
-				.mapping( ig.PS3KEY.CROSS	, ig.KEY.UP_ARROW )
+				.mapping( ig.PS3KEY.UP			, ig.KEY.UP_ARROW )
+				.mapping( ig.PS3KEY.CROSS		, ig.KEY.UP_ARROW )
 				;
 			// ...
 		},
