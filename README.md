@@ -8,9 +8,16 @@ Use Sony Playstation(R)3 Wireless Controller in your ImpactJS game on your web b
 lib/game/main.js
 ----------------
 ```
+ig.module( 
+	'game.main'
+)
+.requires(
+	//... ,
+	'plugins.gamepadPS3',
 	// ...
-	.requires( ... , 'plugins.gamepadPS3' , ... )
-	// ...
+)
+.defines(function(){
+
 	MyGame = ig.Game.extend({
 		// ...
 		gamepad: new ig.GamepadPS3(),
@@ -39,6 +46,7 @@ lib/game/main.js
 		},
 		// ...
 	});
+});
 ```
 
 Documentation
