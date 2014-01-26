@@ -1,7 +1,7 @@
-Using Sony Playstation(R)3 in ImpactJS
-====================================== 
+Using Playstation DualShock 3 in ImpactJS
+=========================================
 
-Use Sony Playstation(R)3 Wireless Controller in your ImpactJS game on your web browser. The plugin maps the buttons of the controller with the keyboard.
+Use Sony Playstation DualShock 3 Wireless Controller in your ImpactJS game on your web browser. The plugin maps the buttons of the DualShock with the keyboard.
 
 *Compatibilities: Google Chrome 21+, Mozilla Firefox 24+*
 
