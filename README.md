@@ -1,13 +1,13 @@
 Using Playstation DualShock 3 in ImpactJS
 =========================================
 
-Use Sony Playstation DualShock 3 Wireless Controller in your ImpactJS game on your web browser. The plugin maps the buttons of the DualShock with the keyboard.
+Use Sony PS3 Playstation DualShock 3 Wireless Controller in your ImpactJS game on your web browser. The plugin maps the buttons of the DualShock with the keyboard.
 
 *Compatibilities: Google Chrome 21+, Mozilla Firefox 24+*
 
 Usage
 -----
-Copy **gamepadPS3.js** to your **lib/plugins/** directory.
+Copy **gamepad-dualshock3.js** to your **lib/plugins/** directory.
 
 Edit **lib/game/main.js** :
 ```
@@ -16,14 +16,14 @@ ig.module(
 )
 .requires(
 	//... ,
-	'plugins.gamepadPS3',
+	'plugins.gamepad-dualshock3',
 	// ...
 )
 .defines(function(){
 
 	MyGame = ig.Game.extend({
 		// ...
-		gamepad: new ig.GamepadPS3(),
+		gamepad: new ig.GamepadDualshock3(),
 		// ...
 		init: function() {
 			// ...
@@ -32,12 +32,12 @@ ig.module(
 			ig.input.bind( ig.KEY.UP_ARROW, 'jump' );
 		
 			this.gamepad
-				.mapping( ig.PS3KEY.LEFT		, ig.KEY.LEFT_ARROW )
-				.mapping( ig.PS3AXIS.L_LEFT		, ig.KEY.LEFT_ARROW )
-				.mapping( ig.PS3KEY.RIGHT		, ig.KEY.RIGHT_ARROW )
-				.mapping( ig.PS3AXIS.L_RIGHT	, ig.KEY.RIGHT_ARROW )
-				.mapping( ig.PS3KEY.UP			, ig.KEY.UP_ARROW )
-				.mapping( ig.PS3KEY.CROSS		, ig.KEY.UP_ARROW )
+				.mapping( ig.DUALSHOCK3KEY.LEFT			, ig.KEY.LEFT_ARROW )
+				.mapping( ig.DUALSHOCK3AXIS.LS_LEFT		, ig.KEY.LEFT_ARROW )
+				.mapping( ig.DUALSHOCK3KEY.RIGHT		, ig.KEY.RIGHT_ARROW )
+				.mapping( ig.DUALSHOCK3AXIS.LS_RIGHT	, ig.KEY.RIGHT_ARROW )
+				.mapping( ig.DUALSHOCK3KEY.UP			, ig.KEY.UP_ARROW )
+				.mapping( ig.DUALSHOCK3KEY.CROSS		, ig.KEY.UP_ARROW )
 				;
 			// ...
 		},

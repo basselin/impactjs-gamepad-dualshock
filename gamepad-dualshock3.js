@@ -1,11 +1,11 @@
 /*!
- * gamepadPS3.js v1.0.1
+ * gamepad-dualshock3.js v1.0.2
  * (c) 2014, Benoit Asselin contact(at)ab-d.fr
  * MIT Licence
  */
 
 ig.module(
-	'plugins.gamepadPS3'
+	'plugins.gamepad-dualshock3'
 )
 .defines(function() { "use strict";
 
@@ -14,11 +14,11 @@ window.addEventListener('gamepadconnected', function(e) {
 	ig.log( e.gamepad );
 });
 window.addEventListener('gamepaddisconnected', function(e) {
-  	ig.log( e.gamepad );
+	ig.log( e.gamepad );
 });
 
 if( navigator.webkitGetGamepads ) {
-	ig.PS3KEY = {
+	ig.DUALSHOCK3KEY = {
 		'UP': 12,
 		'RIGHT': 15,
 		'DOWN': 13,
@@ -38,7 +38,7 @@ if( navigator.webkitGetGamepads ) {
 		'PS': 16
 	};
 } else {
-	ig.PS3KEY = {
+	ig.DUALSHOCK3KEY = {
 		'UP': 4,
 		'RIGHT': 5,
 		'DOWN': 6,
@@ -59,18 +59,20 @@ if( navigator.webkitGetGamepads ) {
 	};
 }
 
-ig.PS3AXIS = {
-	'L_LEFT': 101,
-	'L_RIGHT': 102,
-	'L_UP': 103,
-	'L_DOWN': 104,
-	'R_LEFT': 201,
-	'R_RIGHT': 202,
-	'R_UP': 203,
-	'R_DOWN': 204
+ig.DUALSHOCK3AXIS = {
+	// Left stick
+	'LS_LEFT': 101,
+	'LS_RIGHT': 102,
+	'LS_UP': 103,
+	'LS_DOWN': 104,
+	// Right stick
+	'RS_LEFT': 201,
+	'RS_RIGHT': 202,
+	'RS_UP': 203,
+	'RS_DOWN': 204
 };
 
-ig.GamepadPS3 = ig.Class.extend({
+ig.GamepadDualshock3 = ig.Class.extend({
 	axisLimit: 0.5,
 	support: false,
 	mappings: {},
@@ -98,7 +100,7 @@ ig.GamepadPS3 = ig.Class.extend({
 		} else if( navigator.mozGetGamepads ) {
 			controllers = navigator.mozGetGamepads();
 		}
-//		ig.log( 'controllers', controllers ) ;
+		// ig.log( 'controllers', controllers ) ;
 		if( controllers && controllers[this.index] ) {
 			return controllers[this.index];
 		}
@@ -119,7 +121,7 @@ ig.GamepadPS3 = ig.Class.extend({
 		if( controller ) {
 			for( var i = 0; i < controller.buttons.length; i++ ) {
 				var val = controller.buttons[i];
-				var pressed = 1.0 == val;
+				var pressed = ( 1.0 == val );
 				if( 'object' === typeof val ) {
 					pressed = val.pressed;
 					val = val.value;
@@ -134,19 +136,19 @@ ig.GamepadPS3 = ig.Class.extend({
 				
 				// Axis left
 				if( 0 == i ) {
-					buttonsPressed[ig.PS3AXIS.L_LEFT] = ( pressed && !positif );
-					buttonsPressed[ig.PS3AXIS.L_RIGHT] = ( pressed && positif );
+					buttonsPressed[ig.DUALSHOCK3AXIS.LS_LEFT] = ( pressed && !positif );
+					buttonsPressed[ig.DUALSHOCK3AXIS.LS_RIGHT] = ( pressed && positif );
 				} else if( 1 == i ) {
-					buttonsPressed[ig.PS3AXIS.L_UP] = ( pressed && !positif );
-					buttonsPressed[ig.PS3AXIS.L_DOWN] = ( pressed && positif );
+					buttonsPressed[ig.DUALSHOCK3AXIS.LS_UP] = ( pressed && !positif );
+					buttonsPressed[ig.DUALSHOCK3AXIS.LS_DOWN] = ( pressed && positif );
 				}
 				// Axis right
 				else if( 2 == i ) {
-					buttonsPressed[ig.PS3AXIS.R_LEFT] = ( pressed && !positif );
-					buttonsPressed[ig.PS3AXIS.R_RIGHT] = ( pressed && positif );
+					buttonsPressed[ig.DUALSHOCK3AXIS.RS_LEFT] = ( pressed && !positif );
+					buttonsPressed[ig.DUALSHOCK3AXIS.RS_RIGHT] = ( pressed && positif );
 				} else if( 3 == i ) {
-					buttonsPressed[ig.PS3AXIS.R_UP] = ( pressed && !positif );
-					buttonsPressed[ig.PS3AXIS.R_DOWN] = ( pressed && positif );
+					buttonsPressed[ig.DUALSHOCK3AXIS.RS_UP] = ( pressed && !positif );
+					buttonsPressed[ig.DUALSHOCK3AXIS.RS_DOWN] = ( pressed && positif );
 				}
 			}
 		}
