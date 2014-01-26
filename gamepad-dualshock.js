@@ -9,14 +9,6 @@ ig.module(
 )
 .defines(function() { "use strict";
 
-// Gamepad activation
-window.addEventListener('gamepadconnected', function(e) {
-	ig.log( e.gamepad );
-});
-window.addEventListener('gamepaddisconnected', function(e) {
-	ig.log( e.gamepad );
-});
-
 ig.DUALSHOCK_KEY = {
 	'UP': 10,
 	'RIGHT': 11,
@@ -49,6 +41,8 @@ ig.DUALSHOCK_KEY = {
 	'RS_DOWN': 64
 };
 
+
+
 ig._DUALSHOCK_DATA = {
 	//	buttons.index : number.key
 	'DS3': {
@@ -74,6 +68,14 @@ ig._DUALSHOCK_DATA = {
 		
 	}*/
 };
+
+// Gamepad activation
+window.addEventListener('gamepadconnected', function(e) {
+	ig.log( e.gamepad );
+});
+window.addEventListener('gamepaddisconnected', function(e) {
+	ig.log( e.gamepad );
+});
 
 ig.GamepadDualshock = ig.Class.extend({
 	axisLimit: 0.5,
