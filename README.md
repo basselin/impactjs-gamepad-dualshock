@@ -5,8 +5,11 @@ Use Sony Playstation(R)3 Wireless Controller in your ImpactJS game on your web b
 
 *Compatibilities: Google Chrome 21+, Mozilla Firefox 24+*
 
-lib/game/main.js
-----------------
+Usage
+-----
+Copy **gamepadPS3.js** to your **lib/plugins/** directory.
+
+Edit **lib/game/main.js** :
 ```
 ig.module( 
 	'game.main'
