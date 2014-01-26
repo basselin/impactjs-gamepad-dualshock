@@ -7,7 +7,7 @@ Use Sony PS3 Playstation DualShock 3 Wireless Controller in your ImpactJS game o
 
 Usage
 -----
-Copy **gamepad-dualshock3.js** to your **lib/plugins/** directory.
+Copy **gamepad-dualshock.js** to your **lib/plugins/** directory.
 
 Edit **lib/game/main.js** :
 ```
@@ -16,14 +16,14 @@ ig.module(
 )
 .requires(
 	//... ,
-	'plugins.gamepad-dualshock3',
+	'plugins.gamepad-dualshock',
 	// ...
 )
 .defines(function(){
 
 	MyGame = ig.Game.extend({
 		// ...
-		gamepad: new ig.GamepadDualshock3(),
+		gamepad: new ig.GamepadDualshock(),
 		// ...
 		init: function() {
 			// ...
@@ -32,12 +32,12 @@ ig.module(
 			ig.input.bind( ig.KEY.UP_ARROW, 'jump' );
 		
 			this.gamepad
-				.mapping( ig.DUALSHOCK3KEY.LEFT			, ig.KEY.LEFT_ARROW )
-				.mapping( ig.DUALSHOCK3AXIS.LS_LEFT		, ig.KEY.LEFT_ARROW )
-				.mapping( ig.DUALSHOCK3KEY.RIGHT		, ig.KEY.RIGHT_ARROW )
-				.mapping( ig.DUALSHOCK3AXIS.LS_RIGHT	, ig.KEY.RIGHT_ARROW )
-				.mapping( ig.DUALSHOCK3KEY.UP			, ig.KEY.UP_ARROW )
-				.mapping( ig.DUALSHOCK3KEY.CROSS		, ig.KEY.UP_ARROW )
+				.mapping( ig.DUALSHOCK_KEY.LEFT		, ig.KEY.LEFT_ARROW )
+				.mapping( ig.DUALSHOCK_KEY.LS_LEFT	, ig.KEY.LEFT_ARROW )
+				.mapping( ig.DUALSHOCK_KEY.RIGHT	, ig.KEY.RIGHT_ARROW )
+				.mapping( ig.DUALSHOCK_KEY.LS_RIGHT	, ig.KEY.RIGHT_ARROW )
+				.mapping( ig.DUALSHOCK_KEY.UP		, ig.KEY.UP_ARROW )
+				.mapping( ig.DUALSHOCK_KEY.CROSS	, ig.KEY.UP_ARROW )
 				;
 			// ...
 		},
