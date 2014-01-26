@@ -51,7 +51,7 @@ ig.DUALSHOCK_KEY = {
 
 ig._DUALSHOCK_DATA = {
 	//	buttons.index : number.key
-	'_3': {
+	'DS3': {
 		 '4':10,  '5':11,  '6':12,  '7':13,
 		'12':20, '13':21, '14':22, '15':23,
 		'10':30,  '8':31, '11':32,  '9':33,
@@ -59,7 +59,7 @@ ig._DUALSHOCK_DATA = {
 		 '1':50/*, '51':51, '52':52, '53':53, '54':54*/,
 		 '2':60/*, '61':61, '62':62, '63':63, '64':64*/
 	},
-	'_wk3': { // webkit
+	'DSwk3': { // webkit
 		'12':10, '15':11, '13':12, '14':13,
 		 '3':20,  '1':21,  '0':22,  '2':23,
 		 '4':30,  '6':31,  '5':32,  '7':33,
@@ -67,10 +67,10 @@ ig._DUALSHOCK_DATA = {
 		'10':50/*, '51':51, '52':52, '53':53, '54':54*/,
 		'11':60/*, '61':61, '62':62, '63':63, '64':64*/
 	}/*,
-	'_4': {
+	'DS4': {
 		
 	},
-	'_wk4': { // webkit
+	'DSwk4': { // webkit
 		
 	}*/
 };
@@ -82,7 +82,7 @@ ig.GamepadDualshock = ig.Class.extend({
 	index: 0, // gamepad.index
 	controller: false, // The gamepad
 	version: 0, // DualShock 3 or 4
-	prefix: '_3', // ig._DUALSHOCK_DATA
+	prefix: 'DS3', // ig._DUALSHOCK_DATA
 	prevButtonsPressed: {},
 	
 	init: function( gamepadIndex ) {
@@ -99,7 +99,7 @@ ig.GamepadDualshock = ig.Class.extend({
 	
 	setController: function() {
 		this.controller = false;
-		this.prefix = '_';
+		this.prefix = 'DS';
 		
 		var controllers = false;
 		if( navigator.getGamepads ) {

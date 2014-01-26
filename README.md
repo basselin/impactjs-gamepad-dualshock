@@ -36,7 +36,6 @@ ig.module(
 				.mapping( ig.DUALSHOCK_KEY.LS_LEFT	, ig.KEY.LEFT_ARROW )
 				.mapping( ig.DUALSHOCK_KEY.RIGHT	, ig.KEY.RIGHT_ARROW )
 				.mapping( ig.DUALSHOCK_KEY.LS_RIGHT	, ig.KEY.RIGHT_ARROW )
-				.mapping( ig.DUALSHOCK_KEY.UP		, ig.KEY.UP_ARROW )
 				.mapping( ig.DUALSHOCK_KEY.CROSS	, ig.KEY.UP_ARROW )
 				;
 			// ...
