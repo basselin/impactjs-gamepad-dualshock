@@ -134,7 +134,7 @@ ig.GamepadDualshock3 = ig.Class.extend({
 				var pressed = ( Math.abs(val) > this.axisLimit );
 				var positif = ( val > 0 );
 				
-				// Axis left
+				// Left stick
 				if( 0 == i ) {
 					buttonsPressed[ig.DUALSHOCK3AXIS.LS_LEFT] = ( pressed && !positif );
 					buttonsPressed[ig.DUALSHOCK3AXIS.LS_RIGHT] = ( pressed && positif );
@@ -142,7 +142,7 @@ ig.GamepadDualshock3 = ig.Class.extend({
 					buttonsPressed[ig.DUALSHOCK3AXIS.LS_UP] = ( pressed && !positif );
 					buttonsPressed[ig.DUALSHOCK3AXIS.LS_DOWN] = ( pressed && positif );
 				}
-				// Axis right
+				// Right stick
 				else if( 2 == i ) {
 					buttonsPressed[ig.DUALSHOCK3AXIS.RS_LEFT] = ( pressed && !positif );
 					buttonsPressed[ig.DUALSHOCK3AXIS.RS_RIGHT] = ( pressed && positif );
