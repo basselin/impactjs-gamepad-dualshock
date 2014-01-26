@@ -54,5 +54,5 @@ Documentation
 * https://developer.mozilla.org/en-US/docs/Web/Guide/API/Gamepad
 * http://luser.github.io/gamepadtest/
 
-Note: As of Firefox 24, the Gamepad API is available behind a preference. You can enable it by loading about:config and setting the dom.gamepad.enabled preference to true.
+Note: As of Firefox 24, the Gamepad API is available behind a preference. You can enable it by loading **about:config** and setting the **dom.gamepad.enabled** preference to **true**.
 
