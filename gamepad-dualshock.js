@@ -181,7 +181,7 @@ ig.GamepadDualshock = ig.Class.extend({
 			this.version = 4;
 			this.suffix = '';
 		}
-		ig.log( this.prefix, this.version, this.suffix, id );
+		// ig.log( this.prefix, this.version, this.suffix, id );
 	},
 	
 	getName: function() {
