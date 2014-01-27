@@ -1,5 +1,5 @@
 /*!
- * gamepad-dualshock.js v2.0.0 beta2
+ * gamepad-dualshock.js v2.0.0 beta3
  * (c) 2014, Benoit Asselin contact(at)ab-d.fr
  * MIT Licence
  */
@@ -91,7 +91,7 @@ ig._DUALSHOCK_AXES_IDX = {
 	/*'base': {
 		'0':0, '1':1,
 		'2':2, '3':3,
-		'4':4, '5':5 // DS4 D-Pad
+		'4':4, '5':5 // D-Pad stick DS4
 	},*/
 	'DS3': { },
 	'wkDS3': { }, // webkit
@@ -121,11 +121,11 @@ ig.GamepadDualshock = ig.Class.extend({
 	support: false,
 	mappings: {},
 	index: 0, // gamepad.index
-	controller: false, // The gamepad
+	controller: false, // the gamepad
+	prefix: 'DS',
 	version: 0, // DualShock 3 or 4
-	prefix: 'DS3', // ig._DUALSHOCK_BUTTONS_IDX
 	suffix: '',
-	keyDSx: '', // prefix + version + suffix
+	keyDSx: '', // ig._DUALSHOCK_X_IDX[ prefix + version + suffix ]
 	prevButtonsPressed: {},
 	
 	init: function( gamepadIndex ) {
@@ -198,23 +198,24 @@ ig.GamepadDualshock = ig.Class.extend({
 		this.setController();
 		var buttonsPressed = {};
 		if( this.controller ) {
-			for( var i = 0; i < this.controller.buttons.length; i++ ) {
-				var i2 = ig._DUALSHOCK_BUTTONS_IDX[this.keyDSx][i];
+			var i, i2, val, pressed, positif;
+			for( i = 0; i < this.controller.buttons.length; i++ ) {
+				i2 = ig._DUALSHOCK_BUTTONS_IDX[this.keyDSx][i];
 				if( 'undefined' === typeof i2 ) { continue; }
-				var val = this.controller.buttons[i];
-				var pressed = ( 1.0 == val );
+				val = this.controller.buttons[i];
+				pressed = ( 1.0 == val );
 				if( 'object' === typeof val ) {
 					pressed = val.pressed;
 					val = val.value;
 				}
 				buttonsPressed[i2] = pressed;
 			}
-			for( var i = 0; i < this.controller.axes.length; i++ ) {
-				var i2 = ig._DUALSHOCK_AXES_IDX[this.keyDSx][i];
+			for( i = 0; i < this.controller.axes.length; i++ ) {
+				i2 = ig._DUALSHOCK_AXES_IDX[this.keyDSx][i];
 				if( 'undefined' === typeof i2 ) { i2 = i; }
-				var val = this.controller.axes[i].toFixed(4);
-				var pressed = ( Math.abs(val) > this.axisLimit );
-				var positif = ( val > 0 );
+				val = this.controller.axes[i].toFixed(4);
+				pressed = ( Math.abs(val) > this.axisLimit );
+				positif = ( val > 0 );
 				
 				// Left stick
 				if( 0 == i2 ) {
