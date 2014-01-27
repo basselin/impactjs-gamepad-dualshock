@@ -1,5 +1,5 @@
 /*!
- * gamepad-dualshock.js v2.0.0 beta
+ * gamepad-dualshock.js v2.0.0 beta2
  * (c) 2014, Benoit Asselin contact(at)ab-d.fr
  * MIT Licence
  */
@@ -220,9 +220,7 @@ ig.GamepadDualshock = ig.Class.extend({
 				if( 0 == i2 ) {
 					buttonsPressed[ig.DUALSHOCK_KEY.LS_LEFT] = ( pressed && !positif );
 					buttonsPressed[ig.DUALSHOCK_KEY.LS_RIGHT] = ( pressed && positif );
-					
 				} else if( 1 == i2 ) {
-					
 					buttonsPressed[ig.DUALSHOCK_KEY.LS_UP] = ( pressed && !positif );
 					buttonsPressed[ig.DUALSHOCK_KEY.LS_DOWN] = ( pressed && positif );
 				}
@@ -234,9 +232,8 @@ ig.GamepadDualshock = ig.Class.extend({
 					buttonsPressed[ig.DUALSHOCK_KEY.RS_UP] = ( pressed && !positif );
 					buttonsPressed[ig.DUALSHOCK_KEY.RS_DOWN] = ( pressed && positif );
 				}
-				
-				// D-Pad like stick
-				if( 4 == this.version ) {
+				// D-Pad stick DS4
+				else if( 4 == this.version ) {
 					if( 4 == i2 ) {
 						buttonsPressed[ig.DUALSHOCK_KEY.LEFT] = ( pressed && !positif );
 						buttonsPressed[ig.DUALSHOCK_KEY.RIGHT] = ( pressed && positif );
