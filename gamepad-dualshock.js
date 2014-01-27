@@ -1,5 +1,5 @@
 /*!
- * gamepad-dualshock.js v2.0.0 alpha
+ * gamepad-dualshock.js v2.0.0 beta
  * (c) 2014, Benoit Asselin contact(at)ab-d.fr
  * MIT Licence
  */
@@ -27,6 +27,7 @@ ig.DUALSHOCK_KEY = {
 	'SHARE': 40, // DS4
 	'OPTIONS': 41, // DS4
 	'PS': 42,
+	'TOUCHPAD': 43, // DS4
 	// Left stick
 	'L3': 50,
 	'LS_LEFT': 51,
@@ -43,7 +44,8 @@ ig.DUALSHOCK_KEY = {
 
 
 
-ig._DUALSHOCK_DATA = {
+// Test: http://luser.github.io/gamepadtest/
+ig._DUALSHOCK_BUTTONS_IDX = {
 	//	buttons.index : number.key
 	'DS3': {
 		 '4':10,  '5':11,  '6':12,  '7':13,
@@ -53,20 +55,57 @@ ig._DUALSHOCK_DATA = {
 		 '1':50/*, '51':51, '52':52, '53':53, '54':54*/,
 		 '2':60/*, '61':61, '62':62, '63':63, '64':64*/
 	},
-	'DSwk3': { // webkit
+	'wkDS3': { // webkit
 		'12':10, '15':11, '13':12, '14':13,
 		 '3':20,  '1':21,  '0':22,  '2':23,
 		 '4':30,  '6':31,  '5':32,  '7':33,
 		 '8':40,  '9':41, '16':42,
 		'10':50/*, '51':51, '52':52, '53':53, '54':54*/,
 		'11':60/*, '61':61, '62':62, '63':63, '64':64*/
-	}/*,
-	'DS4': {
-		
 	},
-	'DSwk4': { // webkit
-		
-	}*/
+	'DS3mj': {
+		/*'':10,   '':11,   '':12,   '':13,*/
+		 '0':20,  '1':21,  '2':22,  '3':23,
+		 '4':30,  '6':31,  '5':32,  '7':33,
+		 '8':40,  '9':41, '12':42,
+		'10':50/*, '51':51, '52':52, '53':53, '54':54*/,
+		'11':60/*, '61':61, '62':62, '63':63, '64':64*/
+	},
+	'DS4': {
+		/*'':10,   '':11,   '':12,   '':13,*/
+		 '3':20,  '2':21,  '1':22,  '0':23,
+		 '4':30,  '6':31,  '5':32,  '7':33,
+		 '8':40,  '9':41, '12':42, '13':43,
+		'10':50/*, '51':51, '52':52, '53':53, '54':54*/,
+		'11':60/*, '61':61, '62':62, '63':63, '64':64*/
+	},
+	'wkDS4': { // webkit === DS4
+		 '3':20,  '2':21,  '1':22,  '0':23,
+		 '4':30,  '6':31,  '5':32,  '7':33,
+		 '8':40,  '9':41, '12':42, '13':43,
+		'10':50/*, '51':51, '52':52, '53':53, '54':54*/,
+		'11':60/*, '61':61, '62':62, '63':63, '64':64*/
+	}
+};
+ig._DUALSHOCK_AXES_IDX = {
+	/*'base': {
+		'0':0, '1':1,
+		'2':2, '3':3,
+		'4':4, '5':5 // DS4 D-Pad
+	},*/
+	'DS3': { },
+	'wkDS3': { }, // webkit
+	'DS3mj': { },
+	'DS4': {
+		/*'0':0,  '1':1,*/
+		/*'2':2,*/'5':3,
+		  '6':4,  '7':5
+	},
+	'wkDS4': { // webkit === DS4
+		/*'0':0,  '1':1,*/
+		/*'2':2,*/'5':3,
+		  '6':4,  '7':5
+	}
 };
 
 // Gamepad activation
@@ -84,7 +123,9 @@ ig.GamepadDualshock = ig.Class.extend({
 	index: 0, // gamepad.index
 	controller: false, // The gamepad
 	version: 0, // DualShock 3 or 4
-	prefix: 'DS3', // ig._DUALSHOCK_DATA
+	prefix: 'DS3', // ig._DUALSHOCK_BUTTONS_IDX
+	suffix: '',
+	keyDSx: '', // prefix + version + suffix
 	prevButtonsPressed: {},
 	
 	init: function( gamepadIndex ) {
@@ -108,7 +149,7 @@ ig.GamepadDualshock = ig.Class.extend({
 			controllers = navigator.getGamepads();
 		} else if( navigator.webkitGetGamepads ) {
 			controllers = navigator.webkitGetGamepads();
-			this.prefix += 'wk';
+			this.prefix = 'wk' + this.prefix;
 		} else if( navigator.mozGetGamepads ) {
 			controllers = navigator.mozGetGamepads();
 		}
@@ -118,19 +159,29 @@ ig.GamepadDualshock = ig.Class.extend({
 			if( !this.version ) {
 				this.findVersion();
 			}
-			this.prefix += ( this.version ? this.version : '3' );
+			this.keyDSx = this.prefix + ( this.version ? this.version : '3' ) + this.suffix;
 		}
 		return this.controller;
 	},
 	
 	findVersion: function() {
-		var arr = this.controller.id.match( /PLAYSTATION\(R\)(\d+)\sController/ );
-		if( arr ) {
-			this.version = Number( arr[1] );
-		} else {
-			this.version = 0;
+		var id = this.controller.id;
+		// DS3
+		if( -1 !== id.indexOf('PLAYSTATION(3) Controller') ) {
+			this.version = 3;
+			this.suffix = '';
 		}
-		ig.log( this.version, this.controller.id );
+		else if( -1 !== id.indexOf('MotioninJoy Virtual Game Controller') ) {
+			// http://www.ps3news.com/PlayStation-3/ps3-dualshock-3sixaxis-x64-windows-7-drivers-now-available/
+			this.version = 3;
+			this.suffix = 'mj';
+		}
+		// DS4
+		else if( -1 !== id.indexOf('Wireless Controller') ) {
+			this.version = 4;
+			this.suffix = '';
+		}
+		ig.log( this.prefix, this.version, this.suffix, id );
 	},
 	
 	getName: function() {
@@ -148,7 +199,8 @@ ig.GamepadDualshock = ig.Class.extend({
 		var buttonsPressed = {};
 		if( this.controller ) {
 			for( var i = 0; i < this.controller.buttons.length; i++ ) {
-				var i2 = ig._DUALSHOCK_DATA[this.prefix][i];
+				var i2 = ig._DUALSHOCK_BUTTONS_IDX[this.keyDSx][i];
+				if( 'undefined' === typeof i2 ) { continue; }
 				var val = this.controller.buttons[i];
 				var pressed = ( 1.0 == val );
 				if( 'object' === typeof val ) {
@@ -158,25 +210,40 @@ ig.GamepadDualshock = ig.Class.extend({
 				buttonsPressed[i2] = pressed;
 			}
 			for( var i = 0; i < this.controller.axes.length; i++ ) {
+				var i2 = ig._DUALSHOCK_AXES_IDX[this.keyDSx][i];
+				if( 'undefined' === typeof i2 ) { i2 = i; }
 				var val = this.controller.axes[i].toFixed(4);
 				var pressed = ( Math.abs(val) > this.axisLimit );
 				var positif = ( val > 0 );
 				
 				// Left stick
-				if( 0 == i ) {
+				if( 0 == i2 ) {
 					buttonsPressed[ig.DUALSHOCK_KEY.LS_LEFT] = ( pressed && !positif );
 					buttonsPressed[ig.DUALSHOCK_KEY.LS_RIGHT] = ( pressed && positif );
-				} else if( 1 == i ) {
+					
+				} else if( 1 == i2 ) {
+					
 					buttonsPressed[ig.DUALSHOCK_KEY.LS_UP] = ( pressed && !positif );
 					buttonsPressed[ig.DUALSHOCK_KEY.LS_DOWN] = ( pressed && positif );
 				}
 				// Right stick
-				else if( 2 == i ) {
+				else if( 2 == i2 ) {
 					buttonsPressed[ig.DUALSHOCK_KEY.RS_LEFT] = ( pressed && !positif );
 					buttonsPressed[ig.DUALSHOCK_KEY.RS_RIGHT] = ( pressed && positif );
-				} else if( 3 == i ) {
+				} else if( 3 == i2 ) {
 					buttonsPressed[ig.DUALSHOCK_KEY.RS_UP] = ( pressed && !positif );
 					buttonsPressed[ig.DUALSHOCK_KEY.RS_DOWN] = ( pressed && positif );
+				}
+				
+				// D-Pad like stick
+				if( 4 == this.version ) {
+					if( 4 == i2 ) {
+						buttonsPressed[ig.DUALSHOCK_KEY.LEFT] = ( pressed && !positif );
+						buttonsPressed[ig.DUALSHOCK_KEY.RIGHT] = ( pressed && positif );
+					} else if( 5 == i2 ) {
+						buttonsPressed[ig.DUALSHOCK_KEY.UP] = ( pressed && !positif );
+						buttonsPressed[ig.DUALSHOCK_KEY.DOWN] = ( pressed && positif );
+					}
 				}
 			}
 		}
