@@ -10,7 +10,7 @@ Usage
 Copy **gamepad-dualshock.js** to your **lib/plugins/** directory.
 
 Edit **lib/game/main.js** :
-```
+```javascript
 ig.module( 
 	'game.main'
 )
