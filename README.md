@@ -51,6 +51,17 @@ ig.module(
 });
 ```
 
+Multiplayer
+-----------
+```javascript
+	player1gamepad: new ig.GamepadDualshock( 0 ),
+	player2gamepad: new ig.GamepadDualshock( 1 ),
+	player3gamepad: new ig.GamepadDualshock( 2 ),
+	// ...
+```
+
+
+
 Documentation
 -------------
 * https://developer.mozilla.org/en-US/docs/Web/Guide/API/Gamepad
