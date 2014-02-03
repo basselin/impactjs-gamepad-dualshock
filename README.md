@@ -5,7 +5,7 @@ Use Sony Playstation DualShock 3 or DualShock 4 Wireless Controller in your Impa
 
 *Tested on ImpactJS version 1.23*
 
-*Compatibilities: Google Chrome 21+, Mozilla Firefox 24+*
+*Compatibilities: Mozilla Firefox 24+, Google Chrome 21+, Opera 15+*
 
 Usage
 -----
