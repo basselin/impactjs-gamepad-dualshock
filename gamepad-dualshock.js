@@ -1,5 +1,5 @@
 /*!
- * gamepad-dualshock.js v2.0.0 beta3
+ * gamepad-dualshock.js v2.1.0
  * (c) 2014, Benoit Asselin contact(at)ab-d.fr
  * MIT Licence
  */
@@ -121,6 +121,7 @@ ig.GamepadDualshock = ig.Class.extend({
 	axisLimit: 0.5,
 	support: false,
 	mappings: {},
+	bindings: {},
 	index: 0, // gamepad.index
 	controller: false, // the gamepad
 	prefix: 'DS',
@@ -139,6 +140,32 @@ ig.GamepadDualshock = ig.Class.extend({
 	mapping: function( padkey, key ) {
 		this.mappings[padkey] = key;
 		return this;
+	},
+	
+	unmapping: function( padkey ) {
+		this.mappings[padkey] = null;
+		return this;
+	},
+	
+	unmappingAll: function() {
+		this.mappings = {};
+	},
+	
+	bind: function( padKey, action ) {
+		this.bindings[padKey] = action;
+		return this;
+	},
+	
+	unbind: function( padKey ) {
+		var action = this.bindings[padKey];
+		ig.input.delayedKeyup[action] = true;
+		
+		this.bindings[padKey] = null;
+		return this;
+	},
+	
+	unbindAll: function() {
+		this.bindings = {};
 	},
 	
 	setController: function() {
@@ -249,6 +276,7 @@ ig.GamepadDualshock = ig.Class.extend({
 		return buttonsPressed;
 	},
 	
+	// mappings
 	triggerKeyboard: function( key, down ) {
 		var ev;
 		if( document.createEvent ) {
@@ -261,7 +289,19 @@ ig.GamepadDualshock = ig.Class.extend({
 			ev.keyCode = key;
 			document.fireEvent( (down ? 'onkeydown' : 'onkeyup'), ev );
 		}
-		return ev;
+	},
+	
+	// bindings
+	igInputAction: function( padKey, down ) {
+		var action = this.bindings[padKey];
+		if( action ) {
+			if( down ) {
+				ig.input.actions[action] = true;
+				ig.input.presses[action] = true;
+			} else {
+				ig.input.delayedKeyup[action] = true;
+			}
+		}
 	},
 	
 	update: function() {
@@ -271,6 +311,11 @@ ig.GamepadDualshock = ig.Class.extend({
 		for( var padKey in this.mappings ) {
 			if( buttonsPressed[padKey] != this.prevButtonsPressed[padKey] ) {
 				this.triggerKeyboard( this.mappings[padKey] , buttonsPressed[padKey] );
+			}
+		}
+		for( var padKey in this.bindings ) {
+			if( buttonsPressed[padKey] != this.prevButtonsPressed[padKey] ) {
+				this.igInputAction( padKey, buttonsPressed[padKey] );
 			}
 		}
 		this.prevButtonsPressed = buttonsPressed;
