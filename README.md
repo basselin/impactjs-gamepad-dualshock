@@ -82,7 +82,8 @@ Changelog
 ---------
 
 **Version 2.1**
-* Added methods: bind, unbind, unbindAll
+* Added methods: `bind`, `unbind`, `unbindAll`
+* Added methods: `unmapping`, `unmappingAll`
 
 **Version 2.0**
 * Playstation Dualshock 4 supported
