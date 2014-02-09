@@ -82,7 +82,7 @@ ig.GamepadDualshock = ig.Class.extend({
 	},
 	
 	unmapping: function( padkey ) {
-		this.mappings[padkey] = null;
+		delete this.mappings[padkey];
 		return this;
 	},
 	
@@ -99,7 +99,7 @@ ig.GamepadDualshock = ig.Class.extend({
 		var action = this.bindings[padKey];
 		ig.input.delayedKeyup[action] = true;
 		
-		this.bindings[padKey] = null;
+		delete this.bindings[padKey];
 		return this;
 	},
 	
