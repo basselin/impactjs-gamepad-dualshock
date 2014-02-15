@@ -1,5 +1,5 @@
 /*!
- * gamepad-dualshock.js v2.2.0
+ * gamepad-dualshock.js v2.2.1
  * (c) 2014, Benoit Asselin contact(at)ab-d.fr
  * MIT Licence
  */
@@ -67,9 +67,9 @@ ig.GamepadDualshock = ig.Class.extend({
 	version: 0, // DualShock 3 or 4
 	suffix: '',
 	keyDSx: '', // ig._DUALSHOCK_X_IDX[ prefix + 'DS' +  version + suffix ]
-	mappings: { },
-	bindings: { },
-	prevButtonsPressed: { },
+	mappings: {},
+	bindings: {},
+	prevButtonsPressed: {},
 	
 	init: function( gamepadIndex ) {
 		ig.GamepadDualshock.addPad( this );
@@ -87,7 +87,7 @@ ig.GamepadDualshock = ig.Class.extend({
 	},
 	
 	unmappingAll: function() {
-		this.mappings = { };
+		this.mappings = {};
 	},
 	
 	bind: function( padKey, action ) {
@@ -104,7 +104,7 @@ ig.GamepadDualshock = ig.Class.extend({
 	},
 	
 	unbindAll: function() {
-		this.bindings = { };
+		this.bindings = {};
 	},
 	
 	setController: function( controllers ) {
@@ -157,11 +157,11 @@ ig.GamepadDualshock = ig.Class.extend({
 	},
 	
 	getButtonsPressed: function() {
-		var buttonsPressed = { };
+		var buttonsPressed = {};
 		if( this.controller ) {
-			var i, i2, val, pressed, positif;
+			var i, l, i2, val, pressed, positif;
 			// buttons pressed
-			for( i = 0; i < this.controller.buttons.length; i++ ) {
+			for( i = 0, l = this.controller.buttons.length; i < l; ++i ) {
 				i2 = ig._DUALSHOCK_BUTTONS_IDX[this.keyDSx][i];
 				if( 'undefined' === typeof i2 ) { continue; }
 				val = this.controller.buttons[i];
@@ -173,7 +173,7 @@ ig.GamepadDualshock = ig.Class.extend({
 				buttonsPressed[i2] = pressed;
 			}
 			// axes pressed
-			for( i = 0; i < this.controller.axes.length; i++ ) {
+			for( i = 0, l = this.controller.axes.length; i < l; ++i ) {
 				i2 = ig._DUALSHOCK_AXES_IDX[this.keyDSx][i];
 				if( 'undefined' === typeof i2 ) { i2 = i; }
 				val = this.controller.axes[i].toFixed( this.axePrecision );
@@ -214,13 +214,14 @@ ig.GamepadDualshock = ig.Class.extend({
 	update: function() {
 		if( !this.controller ) { return; }
 		
-		var buttonsPressed = this.getButtonsPressed();
-		for( var padKey in this.mappings ) {
+		var buttonsPressed = this.getButtonsPressed(),
+		    padKey;
+		for( padKey in this.mappings ) {
 			if( buttonsPressed[padKey] != this.prevButtonsPressed[padKey] ) {
 				this.triggerKeyboard( this.mappings[padKey] , buttonsPressed[padKey] );
 			}
 		}
-		for( var padKey in this.bindings ) {
+		for( padKey in this.bindings ) {
 			if( buttonsPressed[padKey] != this.prevButtonsPressed[padKey] ) {
 				this.igInputAction( padKey, buttonsPressed[padKey] );
 			}
@@ -310,9 +311,9 @@ ig._DUALSHOCK_AXES_IDX = {
 		'2':2, '3':3, // Right stick
 		'4':4, '5':5  // D-Pad stick DS4
 	},*/
-	'DS3': { },
-	'wkDS3': { }, // webkit
-	'DS3mj': { },
+	'DS3': {},
+	'wkDS3': {}, // webkit
+	'DS3mj': {},
 	'DS4': {
 		/*'0':0,  '1':1,*/
 		/*'2':2,*/'5':3,
@@ -331,9 +332,9 @@ ig._DUALSHOCK_AXES_XDI = {
 		'4':4, '5':5, // D-Pad stick DS4 only
 		'6':6, '7':7  // L2/R2 DS4 only
 	},*/
-	'DS3': { },
-	'wkDS3': { }, // webkit
-	'DS3mj': { },
+	'DS3': {},
+	'wkDS3': {}, // webkit
+	'DS3mj': {},
 	'DS4': {
 		/*'0':0,  '1':1,*/
 		/*'2':2,*/'3':5,
@@ -352,7 +353,7 @@ ig._DUALSHOCK_AXES_XDI = {
 
 ig.GamepadDualshock.support = !!( navigator.getGamepads || navigator.webkitGetGamepads || navigator.mozGetGamepads );
 ig.GamepadDualshock.prefix = ( navigator.webkitGetGamepads ? 'wk' : '' );
-ig.GamepadDualshock.pads = [ ];
+ig.GamepadDualshock.pads = [];
 
 ig.GamepadDualshock.addPad = function( that ) {
 	ig.GamepadDualshock.pads.push( that );
@@ -369,8 +370,9 @@ ig.GamepadDualshock.updatePads = function() {
 		controllers = navigator.mozGetGamepads();
 	}
 	
-	for( var i = 0; i < ig.GamepadDualshock.pads.length; i++ ) {
-		var pad = ig.GamepadDualshock.pads[i];
+	var i, l, pad;
+	for( i = 0, l = ig.GamepadDualshock.pads.length; i < l; ++i ) {
+		pad = ig.GamepadDualshock.pads[i];
 		pad.setController( controllers );
 		pad.update();
 	}

@@ -108,16 +108,16 @@ ig.module(
 
 ### Properties
 * **axePrecision**: `Number` *(`4` by default)* The number of digits to appear after the decimal point.
-* **axeLimit**: `Number` *(`0.5` by default)* Value of the axe when the button is pressed
+* **axeLimit**: `Number` *(`0.5` by default)* Value of the axe when the button is pressed.
 * **index**: `Number` *(`0` by default)* Gamepad index.
 * **controller**: `Gamepad` *(`false` by default)* The plugin detects automatically this property.
 * **version**: `Number` *(`0` by default)* Dualshock version `3` or `4`. The plugin detects automatically this property.
 
 ### Methods
-* **bind**: Bind the buttons of the Dualshock with an action.
+* **bind**: Bind the button of the Dualshock with an action.
 	* *padKey*: `Number` See: `ig.DUALSHOCK_KEY.`.
 	* *action*: `String` Action name. See: `ig.input.pressed( )`.
-* **unbind**: Unbind the buttons of the Dualshock with an action.
+* **unbind**: Unbind the button of the Dualshock with an action.
 	* *padKey*: `Number` See: `ig.DUALSHOCK_KEY.`.
 * **unbindAll**: Remove all bindings.
 * **mapping**: Mapping the button of the Dualshock with the keyboard.
@@ -133,6 +133,9 @@ ig.module(
 
 ## Changelog
 
+**Version 2.2.1**
+* `FIXED`: Optimization.
+
 **Version 2.2**
 * `ADDED`: Method: `getAxeValue`.
 * `ADDED`: `ig.Game` automatically `update` the gamepads.
@@ -142,13 +145,13 @@ ig.module(
 * `ADDED`: Methods: `unmapping`, `unmappingAll`.
 
 **Version 2.0**
-* `ADDED`: Playstation Dualshock 4 supported.
 * `ADDED`: Multi-gamepad supported.
+* `ADDED`: Playstation Dualshock 4 supported.
 * `FIXED`: Opera supported.
 
 **Version 1.0**
-* `ADDED`: Playstation Dualshock 3 supported.
 * `ADDED`: Mozilla Firefox and Google Chrome supported.
+* `ADDED`: Playstation Dualshock 3 supported.
 
 
 
