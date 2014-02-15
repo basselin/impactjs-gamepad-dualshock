@@ -1,6 +1,6 @@
 # Utiliser les manettes Playstation DualShock 3 et/ou DualShock 4 avec ImpactJS
 
-GamepadDualshock permet d'utiliser les manettes Sony Playstation DualShock 3 et/ou DualShock 4 Wireless Controller dans les jeux ImpactJS avec les derniers navigateurs web (à l'exception de Microsoft Internet Explorer).
+GamepadDualshock permet d'utiliser les manettes Sony Playstation DualShock 3 et/ou DualShock 4 dans les jeux ImpactJS avec les derniers navigateurs web (à l'exception de Microsoft Internet Explorer).
 Le plugin permet de lier les boutons de la manette DS3 ou DS4 à une action.
 Le plugin permet également de mapper les boutons de la Dualshock avec les touches du clavier.
 
@@ -109,9 +109,9 @@ ig.module(
 ### Propriétés
 * **axePrecision**: `Number` *(`4` par défaut)* Nombre de chiffres après la virgule lors de l'utilisation des axes.
 * **axeLimit**: `Number` *(`0.5` par défaut)* Seuil limite minimum indiquant que le bouton est pressé (selon un axe).
-* **index**: `Number` *(`0` par défaut)* Gamepad index.
+* **index**: `Number` *(`0` par défaut)* Index du gamepad.
 * **controller**: `Gamepad` *(`false` par défaut)* Le plugin détecte automatiquement cette propriété.
-* **version**: `Number` *(`0` par défaut)* Version de la manette Dualshock `3` or `4`. Le plugin détecte automatiquement cette propriété.
+* **version**: `Number` *(`0` par défaut)* Version de la manette Dualshock `3` ou `4`. Le plugin détecte automatiquement cette propriété.
 
 ### Méthodes
 * **bind**: Lier un bouton de la manette Dualshock à une action.
@@ -119,14 +119,14 @@ ig.module(
 	* *action*: `String` Nom de l'action. Voir: `ig.input.pressed( )`.
 * **unbind**: Délier un bouton de la manette Dualshock à une action.
 	* *padKey*: `Number` Voir: `ig.DUALSHOCK_KEY.`.
-* **unbindAll**: Supprimer toutes les liaisons entre boutons et actions.
+* **unbindAll**: Supprimer toutes les liaisons entre les boutons et les actions.
 * **mapping**: Mapper un bouton de la manette Dualshock avec une touche du clavier.
 	* *padKey*: `Number` Voir: `ig.DUALSHOCK_KEY.`.
 	* *key*: `Number` Voir: `ig.KEY.`
 * **unmapping** Supprimer le mapping entre un bouton de la manette Dualshock avec une touche du clavier.
 	* *padKey*: `Number` Voir: `ig.DUALSHOCK_KEY.`.
 * **unmappingAll** Supprimer tout le mappage entre les boutons de la manette Dualshock et les touches du clavier.
-* **getAxeValue**: Retourner la valeur d'un axe.
+* **getAxeValue**: `Number` Retourner la valeur d'un axe.
 	* *axe*: `Number` Voir: `ig.DUALSHOCK_AXE.`
 * **getName**: Retourner le nom `id` du gamepad.
 
@@ -159,7 +159,7 @@ ig.module(
 * https://developer.mozilla.org/en-US/docs/Web/Guide/API/Gamepad
 * http://luser.github.io/gamepadtest/
 
-Note: As of Firefox 24, the Gamepad API is available behind a preference.
-You can enable it by loading **about:config** and setting the **dom.gamepad.enabled** preference to **true**.
+Remarque: Depuis Mozilla Firefox 24, l'API Gamepad est disponible à partir des préférences.
+Pour l'activer, vous devez vous rendre sur la page **about:config** puis passer le paramètre **dom.gamepad.enabled** à **true**.
 
 

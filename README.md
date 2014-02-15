@@ -126,7 +126,7 @@ ig.module(
 * **unmapping** Remove the mapping button of the Dualshock with the keyboard.
 	* *padKey*: `Number` See: `ig.DUALSHOCK_KEY.`.
 * **unmappingAll** Remove all mappings.
-* **getAxeValue**: Return the axe value.
+* **getAxeValue**: `Number` Return the axe value.
 	* *axe*: `Number` See: `ig.DUALSHOCK_AXE.`
 * **getName**: Return the gamepad name's `id`.
 
