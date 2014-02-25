@@ -30,7 +30,7 @@ ig.module(
 		gamepad: new ig.GamepadDualshock(),
 		// ...
 		init: function() {
-			// Basic method
+			// Basic method ImpactJS
 			ig.input.bind( ig.KEY.LEFT_ARROW, 'left' );
 			ig.input.bind( ig.KEY.RIGHT_ARROW, 'right' );
 			ig.input.bind( ig.KEY.UP_ARROW, 'jump' );
@@ -136,20 +136,20 @@ ig.module(
 **Version 2.2.1**
 * `FIXED`: Optimization.
 
-**Version 2.2**
+**Version 2.2.0**
 * `ADDED`: Method: `getAxeValue`.
 * `ADDED`: `ig.Game` automatically `update` the gamepads.
 
-**Version 2.1**
+**Version 2.1.0**
 * `ADDED`: Methods: `bind`, `unbind`, `unbindAll`.
 * `ADDED`: Methods: `unmapping`, `unmappingAll`.
 
-**Version 2.0**
+**Version 2.0.0**
 * `ADDED`: Multi-gamepad supported.
 * `ADDED`: Playstation Dualshock 4 supported.
 * `FIXED`: Opera supported.
 
-**Version 1.0**
+**Version 1.0.0**
 * `ADDED`: Mozilla Firefox and Google Chrome supported.
 * `ADDED`: Playstation Dualshock 3 supported.
 

@@ -30,12 +30,12 @@ ig.module(
 		gamepad: new ig.GamepadDualshock(),
 		// ...
 		init: function() {
-			// Basic method
+			// Méthode classique de ImpactJS
 			ig.input.bind( ig.KEY.LEFT_ARROW, 'left' );
 			ig.input.bind( ig.KEY.RIGHT_ARROW, 'right' );
 			ig.input.bind( ig.KEY.UP_ARROW, 'jump' );
 			
-			// METHOD #1: Lier les boutons de la Dualshock à une action
+			// METHODE #1: Lier les boutons de la Dualshock à une action
 			this.gamepad
 				.bind( ig.DUALSHOCK_KEY.LEFT		, 'left' )
 				.bind( ig.DUALSHOCK_KEY.LS_LEFT		, 'left' )
@@ -44,8 +44,8 @@ ig.module(
 				.bind( ig.DUALSHOCK_KEY.CROSS		, 'jump' )
 				;
 			
-			// OR
-			// METHOD #2: Mapper les boutons de la Dualshock aux touches du clavier
+			// OU
+			// METHODE #2: Mapper les boutons de la Dualshock aux touches du clavier
 			this.gamepad
 				.mapping( ig.DUALSHOCK_KEY.LEFT		, ig.KEY.LEFT_ARROW )
 				.mapping( ig.DUALSHOCK_KEY.LS_LEFT	, ig.KEY.LEFT_ARROW )
@@ -145,7 +145,7 @@ ig.module(
 * `ADDED`: Méthodes: `unmapping`, `unmappingAll`.
 
 **Version 2.0.0**
-* `ADDED`: Multi-gamepad supportée.
+* `ADDED`: Multi-gamepad supporté.
 * `ADDED`: Support de la manette Playstation Dualshock 4.
 * `FIXED`: Support du navigateur Opera.
 
