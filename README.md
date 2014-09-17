@@ -4,7 +4,7 @@ Use Sony Playstation DualShock 3 or DualShock 4 Wireless Controller in your Impa
 The plugin binds the buttons of the DS3 or DS4 to an action.
 The plugin can also map the buttons of the Dualshock with the keyboard.
 
-*Tested on ImpactJS version 1.23*
+*Tested on ImpactJS version 1.23+*
 
 *Compatibilities: Mozilla Firefox 24+, Google Chrome 21+, Opera 15+*
 
